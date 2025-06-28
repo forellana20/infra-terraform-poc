@@ -70,13 +70,13 @@ This guide outlines the steps required to configure a Google Cloud project to wo
 6. **Create a Cloud Storage Bucket for Terraform State**
     - Create a Google Cloud Storage bucket to store the Terraform state:
       ```bash
-      gsutil mb -p processes-dev gs://terraform_state_zacatecoluca
+      gsutil mb -p processes-dev gs://terraform_state_dev
       ```
 
 7. **Enable object versioning on GCS**
     - Enable object versioning on the Google Cloud Storage bucket that stores the Terraform state:
     ```bash
-    gcloud storage buckets update gs://terraform_state_zacatecoluca --versioning
+    gcloud storage buckets update gs://terraform_state_dev --versioning
     ```
 
 8. **Enable lifecycle policy for versioning**
