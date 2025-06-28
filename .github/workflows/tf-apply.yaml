@@ -1,0 +1,14 @@
+name: "TF Apply"
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  tf-apply:
+    uses: ./.github/workflows/r_tf_plan_apply.yaml
+    with:
+      tf_version: "1.9.0"
+      tf_apply: true
+    secrets:
+      gcp_token: ${{ secrets.GCP_TF_KEY }}

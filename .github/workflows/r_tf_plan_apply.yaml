@@ -1,0 +1,41 @@
+name: r_tf_plan_apply
+
+on:
+  workflow_call:
+    inputs:
+      tf_version:
+        description: "Version of Terraform to use"
+        type: string
+        required: true
+      tf_apply:
+        description: "True if this workflow should apply the changes"
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      gcp_token:
+        required: true
+
+jobs:
+  plan-apply:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: GCP Authentication
+        uses: google-github-actions/auth@v2
+        with: 
+          credentials_json: ${{ secrets.gcp_token }}
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ inputs.tf_version }}
+      - name: Terraform Format
+        run: terraform fmt -recursive -check
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform Plan
+        run: terraform plan -out "${GITHUB_WORKSPACE}"/tfplan
+      - name: Terraform Apply
+        if: ${{ inputs.tf_apply }}
+        run: terraform apply "${GITHUB_WORKSPACE}"/tfplan

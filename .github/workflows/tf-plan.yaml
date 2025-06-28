@@ -1,0 +1,15 @@
+name: "TF Plan"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+jobs:
+  tf-plan:
+    uses: ./.github/workflows/r_tf_plan_apply.yaml
+    with:
+      tf_version: "1.9.0"
+      tf_apply: false
+    secrets:
+      gcp_token: ${{ secrets.GCP_TF_KEY }}
