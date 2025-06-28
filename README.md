@@ -99,7 +99,7 @@ This guide outlines the steps required to configure a Google Cloud project to wo
 
     - Apply the object lifecycle policy to the bucket:
     ```bash
-    gcloud storage buckets update gs://terraform_state_zacatecoluca --lifecycle-file=tf-state-policy.json
+    gcloud storage buckets update gs://terraform_state_dev --lifecycle-file=tf-state-policy.json
     ```
 
 ## Next Steps
